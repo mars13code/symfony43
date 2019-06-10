@@ -79,5 +79,26 @@ php bin/console make:controller
 
     created: src/Controller/VisitController.php
     created: templates/visit/index.html.twig
- 
+
+* vérifier que l'url affiche bien une page
+
+https://localhost/symfony43/public/visit
+
+* on va changer cette url pour créer notre page d'accueil
+* dans le fichier src/VisitController.php
+* changer l'url de la route en "/" (au lieu de "/visit")
+
+
+    /**
+     * @Route("/", name="visit")
+     */
+    public function index()
+
+
+* vérifier que l'url affiche bien une page
+
+https://localhost/symfony43/public/
+
+
+
 
