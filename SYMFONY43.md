@@ -51,3 +51,19 @@ php composer.phar require symfony/apache-pack
 
 * => vérifier que le fichier public/.htaccess est bien créé
 
+## VERIFICATION INSTALL
+
+* dans le navigateur, aller sur l'URL
+
+https://localhost/symfony43/public/
+
+* => la page doit afficher une page symfony
+
+* tester une URL qui n'existe pas
+
+https://localhost/symfony43/public/blabla
+
+* => la page doit afficher une erreur symfony (et pas apache...)
+
+
+
