@@ -463,3 +463,32 @@ https://symfony.com/doc/current/templating.html
         </header>
 
 
+## TESTS 
+
+
+https://symfony.com/doc/current/testing.html
+
+* lancer la ligne de commande
+
+php bin/console make:unit-test
+
+* on doit obtenir un nouveau fichier
+
+    created: tests/BasicTest.php
+
+* lancer tous les tests
+
+php bin/phpunit
+
+* => au premier lancement, cela provoque l'installation des bundles nécessaires...
+
+* on devrait obtenir ce message
+
+    
+    Testing Project Test Suite
+    .                                                                   1 / 1 (100%)
+    
+    Time: 39 ms, Memory: 4.00MB
+    
+    OK (1 test, 1 assertion)
+    
