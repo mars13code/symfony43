@@ -14,25 +14,29 @@ https://symfony.com/doc/current/setup.html
 *   (avec la plupart des bundles utiles...)
 
 
-php composer.phar create-project symfony/website-skeleton symfony43
+    php composer.phar create-project symfony/website-skeleton symfony43
+
 
 ## INITIALISER GIT
 
 * avec le terminal, dans le dossier symfony43/
 * lancer git init
 
-* modifier le fichier .gitgnore
+* modifier le fichier .gitignore
 
-
-    ## NE PAS GERER CES FICHIERS DANS git
-    *.log
-    src/Migrations/
+```
+## NE PAS GERER CES FICHIERS DANS git
+*.log
+src/Migrations/
+```
 
 * lancer les commandes
 
+```
     git status
     git add -A
     git commit -a -m "symfony43"
+```
 
 ## AJOUTER LE BUNDLE APACHE PACK
 
@@ -44,7 +48,8 @@ https://symfony.com/doc/current/setup/web_server_configuration.html
 * avec le terminal, dans le dossier symfony43/
 * lancer composer pour installer apache-pack
 
-php composer.phar require symfony/apache-pack
+
+    php composer.phar require symfony/apache-pack
 
 * => répondre 'yes'
 *       (confirmation demandée acr ce n'est pas une recette officielle)
@@ -89,15 +94,17 @@ https://localhost/symfony43/public/visit
 * changer l'url de la route en "/" (au lieu de "/visit")
 
 
+```
     /**
      * @Route("/", name="visit")
      */
     public function index()
+```
 
 
 * vérifier que l'url affiche bien une page
 
-https://localhost/symfony43/public/
+    https://localhost/symfony43/public/
 
 
 ## CONFIGURER DOCTRINE
@@ -111,14 +118,15 @@ https://symfony.com/doc/current/doctrine.html
 * modifier la ligne suivante dans le fichier .env
 * (au besoin changer le user et password MySQL...)
 
-
-    # DATABASE_URL=mysql://db_user:db_password@127.0.0.1:3306/db_name
-    DATABASE_URL=mysql://root:@127.0.0.1:3306/symfony43
+```
+# DATABASE_URL=mysql://db_user:db_password@127.0.0.1:3306/db_name
+DATABASE_URL=mysql://root:@127.0.0.1:3306/symfony43
+```
 
 
 * lancer la ligne de commande pour créer la database MySQL
 
-php bin/console doctrine:database:create
+    php bin/console doctrine:database:create
 
 * on devrait obtenir ce message
 
@@ -143,7 +151,7 @@ https://symfony.com/doc/current/doctrine.html#creating-an-entity-class
 
 * lancer la ligne de commande
 
-php bin/console make:entity
+    php bin/console make:entity
 
 * répondre aux questions...
 
@@ -191,10 +199,12 @@ http://localhost/symfony43/public/contenu/
 
 * on va changer le préfixe d'url pour déplacer ces pages dans la partie admin/
 
-    /**
-     * @Route("/admin/contenu")
-     */
-    class ContenuController extends AbstractController
+```php
+/**
+ * @Route("/admin/contenu")
+ */
+class ContenuController extends AbstractController
+```
 
 * les pages CRUD sont maintenant sur cette URL
 
@@ -213,7 +223,7 @@ https://symfony.com/doc/current/security.html#a-create-your-user-class
 
 * lancer la ligne de commande
 
-php bin/console make:user
+    php bin/console make:user
 
 * répondre aux questions en laissant les choix par défaut
 
@@ -234,6 +244,7 @@ php bin/console make:user
 
 * contourner le problème en enlevant la colonne roles
 
+```php
     /**
      * @ORM\Column(type="string", length=160, unique=true)
      */
@@ -242,6 +253,7 @@ php bin/console make:user
     /**
      */
     private $roles = [];
+```
 
 
 * effacer les fichiers src/Migrations/Version...
@@ -276,16 +288,19 @@ php bin/console make:user
 * modifier le préfixe de route pour ajouter /admin/
 
 
+```php
     /**
      * @Route("/admin/user")
      */
     class UserController extends AbstractController
+```
 
 
 ## hashage du mot de passe
 
 https://www.php.net/manual/fr/function.password-hash.php
 
+```php
 
     /**
      * @Route("/new", name="user_new", methods={"GET","POST"})
@@ -315,6 +330,9 @@ https://www.php.net/manual/fr/function.password-hash.php
             'form' => $form->createView(),
         ]);
     }
+
+```
+
 
 ## AJOUT DU FORMULAIRE DE LOGIN
 
@@ -360,6 +378,8 @@ https://symfony.com/doc/current/security/form_login_setup.html
 
 * changer la méthode getRoles dans src/Entity/User.php
 
+```php
+
     /**
      * @see UserInterface
      */
@@ -372,16 +392,18 @@ https://symfony.com/doc/current/security/form_login_setup.html
 
         return array_unique($roles);
     }
+```
 
 
 * changer le fichier config/packages/security.yaml
 
-
+```
     # Easy way to control access for large sections of your site
     # Note: Only the *first* access control that matches will be used
     access_control:
         - { path: ^/admin, roles: ROLE_ADMIN }
         # - { path: ^/profile, roles: ROLE_USER }
+```
 
 
 * vérifier que maintenant, on ne peut se connecter aux pages /admin/
@@ -394,6 +416,7 @@ https://symfony.com/doc/current/security/form_login_setup.html
 * modifier la méthode onAuthenticationSuccess
 * pour rediriger vers la route contenu_index
 
+```php
 
     public function onAuthenticationSuccess(Request $request, TokenInterface $token, $providerKey)
     {
@@ -406,6 +429,8 @@ https://symfony.com/doc/current/security/form_login_setup.html
         return new RedirectResponse($this->urlGenerator->generate('contenu_index'));
     }
 
+```
+
 * => vérifier que sur la page de /login
 * =>    si on entre les infos de login pour un bon User
 * =>        on est alors redirigé vers la page admin/contenu
@@ -417,14 +442,19 @@ https://symfony.com/doc/current/security.html#logging-out
 
 * ajouter dans config/packages/security.yaml
 
+```
+
             logout:
                 path:   app_logout
                 # where to redirect after logout
                 target: app_login                
                 
+```
+
 
 * ajouter la méthode logout dans src/security/SecurityController.php
 
+```php
 
     /**
      * @Route("/logout", name="app_logout", methods={"GET"})
@@ -434,6 +464,9 @@ https://symfony.com/doc/current/security.html#logging-out
         // controller can be blank: it will never be executed!
         throw new \Exception('Don\'t forget to activate logout in security.yaml');
     }
+
+```
+
 
 * on a maintenant dans le profiler un lien pour se déconnecter
 * et si on clique sur le lien
@@ -449,6 +482,8 @@ https://symfony.com/doc/current/templating.html
 
 * modifier le fichier templates/base.html.twig 
 
+```
+
         <header>
             <h1>site symfony43</h1>
             <nav>
@@ -462,6 +497,8 @@ https://symfony.com/doc/current/templating.html
             </nav>
         </header>
 
+```
+
 
 ## TESTS 
 
@@ -470,7 +507,7 @@ https://symfony.com/doc/current/testing.html
 
 * lancer la ligne de commande
 
-php bin/console make:unit-test
+    php bin/console make:unit-test
 
 * on doit obtenir un nouveau fichier
 
@@ -478,12 +515,13 @@ php bin/console make:unit-test
 
 * lancer tous les tests
 
-php bin/phpunit
+    php bin/phpunit
 
 * => au premier lancement, cela provoque l'installation des bundles nécessaires...
 
 * on devrait obtenir ce message
 
+```
     
     Testing Project Test Suite
     .                                                                   1 / 1 (100%)
@@ -492,6 +530,7 @@ php bin/phpunit
     
     OK (1 test, 1 assertion)
     
+```
 
 ## test avec doctrine
 
