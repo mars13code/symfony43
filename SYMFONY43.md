@@ -33,3 +33,21 @@ php composer.phar create-project symfony/website-skeleton symfony43
     git status
     git add -A
     git commit -a -m "symfony43"
+
+## AJOUTER LE BUNDLE APACHE PACK
+
+* on va utiliser symfony avec un serveur web apache
+* => il faut ajouter le fichier public/.htaccess pour les rewrite rules
+
+https://symfony.com/doc/current/setup/web_server_configuration.html
+
+* avec le terminal, dans le dossier symfony43/
+* lancer composer pour installer apache-pack
+
+php composer.phar require symfony/apache-pack
+
+* => répondre 'yes'
+*       (confirmation demandée acr ce n'est pas une recette officielle)
+
+* => vérifier que le fichier public/.htaccess est bien créé
+
