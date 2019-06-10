@@ -315,3 +315,31 @@ https://www.php.net/manual/fr/function.password-hash.php
             'form' => $form->createView(),
         ]);
     }
+
+## AJOUT DU FORMULAIRE DE LOGIN
+
+https://symfony.com/doc/current/security/form_login_setup.html
+
+* lancer la commande 
+
+    php bin/console make:auth
+
+* répondre aux questions en donnant comme réponses:
+
+
+    What style of authentication do you want? [Empty authenticator]:
+      [0] Empty authenticator
+      [1] Login form authenticator
+     > 1
+    
+     The class name of the authenticator to create (e.g. AppCustomAuthenticator):
+     > LoginFormAuthenticator
+    
+     Choose a name for the controller class (e.g. SecurityController) [SecurityController]:
+     > 
+    
+     created: src/Security/LoginFormAuthenticator.php
+     updated: config/packages/security.yaml
+     created: src/Controller/SecurityController.php
+     created: templates/security/login.html.twig
+
