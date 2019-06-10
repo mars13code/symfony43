@@ -217,9 +217,43 @@ php bin/console make:user
 
 * répondre aux questions en laissant les choix par défaut
 
-
     created: src/Entity/User.php
     created: src/Repository/UserRepository.php
     updated: src/Entity/User.php
     updated: config/packages/security.yaml
+
  
+* lancer la création de la table MySQL
+
+    php bin/console make:migration
+    php bin/console doctrine:migrations:migrate
+
+* si vous avez une version MySQL < 5.7.8
+* il y a une erreur car le type JSON n'existe pas 
+*               dans les versions plus anciennes de MySQL
+
+* contourner le problème en enlevant la colonne roles
+
+    /**
+     * @ORM\Column(type="string", length=160, unique=true)
+     */
+    private $email;
+
+    /**
+     */
+    private $roles = [];
+
+
+* effacer les fichiers src/Migrations/Version...
+* relancer les commandes de synchronisation
+
+    php bin/console make:migration
+    php bin/console doctrine:migrations:migrate
+
+* on devrait obtenir un message...
+
+    -> CREATE TABLE user (id INT AUTO_INCREMENT NOT NULL, email VARCHAR(160) NOT NULL, password VARCHAR(255) NOT NULL, UNIQUE INDEX UNIQ_8D93D649E7927C74 (email), PRIMARY KEY(id)) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci ENGINE = InnoDB
+
+* vérifier avec phpmyadmin que tout s'est bien passé...
+
+
