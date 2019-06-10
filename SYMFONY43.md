@@ -343,3 +343,47 @@ https://symfony.com/doc/current/security/form_login_setup.html
      created: src/Controller/SecurityController.php
      created: templates/security/login.html.twig
 
+
+* vérifier que le formulaire de login focntionne correctement
+
+
+    https://localhost/symfony43/public/login
+    
+* dans la barre du profiler, on doit voir le User connecté...
+
+
+## PROTEGER LA PARTIE admin/
+
+* on va donner le role ROLE_ADMIN à User
+* et on va demander le role ROLE_ADMIN pour toutes les uri préfixées avec /admin/
+
+
+* changer la méthode getRoles dans src/Entity/User.php
+
+    /**
+     * @see UserInterface
+     */
+    public function getRoles(): array
+    {
+        $roles = $this->roles;
+        // guarantee every user at least has ROLE_USER
+        $roles[] = 'ROLE_USER';
+        $roles[] = 'ROLE_ADMIN';
+
+        return array_unique($roles);
+    }
+
+
+* changer le fichier config/packages/security.yaml
+
+
+    # Easy way to control access for large sections of your site
+    # Note: Only the *first* access control that matches will be used
+    access_control:
+        - { path: ^/admin, roles: ROLE_ADMIN }
+        # - { path: ^/profile, roles: ROLE_USER }
+
+
+* vérifier que maintenant, on ne peut se connecter aux pages /admin/
+* que si on s'est bien identifié sur la page /login
+
