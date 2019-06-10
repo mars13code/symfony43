@@ -281,3 +281,37 @@ php bin/console make:user
      */
     class UserController extends AbstractController
 
+
+## hashage du mot de passe
+
+https://www.php.net/manual/fr/function.password-hash.php
+
+
+    /**
+     * @Route("/new", name="user_new", methods={"GET","POST"})
+     */
+    public function new(Request $request): Response
+    {
+        $user = new User();
+        $form = $this->createForm(UserType::class, $user);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            
+            // hashage du mot de passe
+            $passwordNonHash = $user->getPassword();
+            $passwordHash = password_hash($passwordNonHash, PASSWORD_ARGON2I);
+            $user->setPassword($passwordHash);
+
+            $entityManager = $this->getDoctrine()->getManager();
+            $entityManager->persist($user);
+            $entityManager->flush();
+
+            return $this->redirectToRoute('user_index');
+        }
+
+        return $this->render('user/new.html.twig', [
+            'user' => $user,
+            'form' => $form->createView(),
+        ]);
+    }

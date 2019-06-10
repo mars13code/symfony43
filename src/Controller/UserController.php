@@ -35,6 +35,12 @@ class UserController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            
+            // hashage du mot de passe
+            $passwordNonHash = $user->getPassword();
+            $passwordHash = password_hash($passwordNonHash, PASSWORD_ARGON2I);
+            $user->setPassword($passwordHash);
+
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->persist($user);
             $entityManager->flush();
