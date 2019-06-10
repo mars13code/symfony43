@@ -387,3 +387,26 @@ https://symfony.com/doc/current/security/form_login_setup.html
 * vérifier que maintenant, on ne peut se connecter aux pages /admin/
 * que si on s'est bien identifié sur la page /login
 
+
+## REDIRECTION VERS LA PAGE admin/contenu
+
+* changer le code dans src/Security/LoginFormAuthenticator.php
+* modifier la méthode onAuthenticationSuccess
+* pour rediriger vers la route contenu_index
+
+
+    public function onAuthenticationSuccess(Request $request, TokenInterface $token, $providerKey)
+    {
+        if ($targetPath = $this->getTargetPath($request->getSession(), $providerKey)) {
+            return new RedirectResponse($targetPath);
+        }
+
+        // For example : return new RedirectResponse($this->urlGenerator->generate('some_route'));
+        // throw new \Exception('TODO: provide a valid redirect inside '.__FILE__);
+        return new RedirectResponse($this->urlGenerator->generate('contenu_index'));
+    }
+
+* => vérifier que sur la page de /login
+* =>    si on entre les infos de login pour un bon User
+* =>        on est alors redirigé vers la page admin/contenu
+
