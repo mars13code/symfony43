@@ -111,8 +111,44 @@ https://symfony.com/doc/current/doctrine.html
 * modifier la ligne suivante dans le fichier .env
 * (au besoin changer le user et password MySQL...)
 
-# DATABASE_URL=mysql://db_user:db_password@127.0.0.1:3306/db_name
-DATABASE_URL=mysql://root:@127.0.0.1:3306/symfony43
+
+    # DATABASE_URL=mysql://db_user:db_password@127.0.0.1:3306/db_name
+    DATABASE_URL=mysql://root:@127.0.0.1:3306/symfony43
+
+
+* lancer la ligne de commande pour créer la database MySQL
+
+php bin/console doctrine:database:create
+
+* on devrait obtenir ce message
+
+    Created database `symfony43` for connection named default
+
+* => vérifier avec phpmyadmin que la database a bien été créée
+
+## CREER UNE ENTITE Contenu
+
+https://symfony.com/doc/current/doctrine.html#creating-an-entity-class
+
+* on va créer une entité Contenu
+*   avec comme propriétés
+*       titre           string(160)
+*       uri             string(160)
+*       code            text
+*       imageSrc        string(160)
+*       categorie       string(160)
+*       dateCreation    datetime
+
+
+* lancer la ligne de commande
+
+php bin/console make:entity
+
+* répondre aux questions...
+
+
+    created: src/Entity/Contenu.php
+    created: src/Repository/ContenuRepository.php
 
 
 
