@@ -126,6 +126,7 @@ php bin/console doctrine:database:create
 
 * => vérifier avec phpmyadmin que la database a bien été créée
 
+
 ## CREER UNE ENTITE Contenu
 
 https://symfony.com/doc/current/doctrine.html#creating-an-entity-class
@@ -150,7 +151,39 @@ php bin/console make:entity
     created: src/Entity/Contenu.php
     created: src/Repository/ContenuRepository.php
 
+* lancer la création de la table MySQL
 
+
+    php bin/console make:migration
+    php bin/console doctrine:migrations:migrate
+
+* on devrait obtenir ce message
+
+    -> CREATE TABLE contenu (id INT AUTO_INCREMENT NOT NULL, titre VARCHAR(160) NOT NULL, uri VARCHAR(160) NOT NULL, code LONGTEXT NOT NULL, image_src VARCHAR(160) NOT NULL, categorie VARCHAR(160) NOT NULL, date_creation DATETIME NOT NULL, PRIMARY KEY(id)) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci ENGINE = InnoDB
+
+* vérifier avec phpmyadmin que la table SQL est bien créée
+
+
+
+## CREER LES PAGES CRUD SUR Contenu
+
+https://symfony.com/blog/new-and-improved-generators-for-makerbundle
+
+
+* lancer la ligne de commande
+
+    php bin/console make:crud Contenu
+
+* on doit obtenir ces fichiers...
+
+    created: src/Controller/ContenuController.php
+    created: src/Form/ContenuType.php
+    created: templates/contenu/_delete_form.html.twig
+    created: templates/contenu/_form.html.twig
+    created: templates/contenu/edit.html.twig
+    created: templates/contenu/index.html.twig
+    created: templates/contenu/new.html.twig
+    created: templates/contenu/show.html.twig
 
 
 

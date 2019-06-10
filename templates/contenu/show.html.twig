@@ -1,0 +1,46 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Contenu{% endblock %}
+
+{% block body %}
+    <h1>Contenu</h1>
+
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ contenu.id }}</td>
+            </tr>
+            <tr>
+                <th>Titre</th>
+                <td>{{ contenu.titre }}</td>
+            </tr>
+            <tr>
+                <th>Uri</th>
+                <td>{{ contenu.uri }}</td>
+            </tr>
+            <tr>
+                <th>Code</th>
+                <td>{{ contenu.code }}</td>
+            </tr>
+            <tr>
+                <th>ImageSrc</th>
+                <td>{{ contenu.imageSrc }}</td>
+            </tr>
+            <tr>
+                <th>Categorie</th>
+                <td>{{ contenu.categorie }}</td>
+            </tr>
+            <tr>
+                <th>DateCreation</th>
+                <td>{{ contenu.dateCreation ? contenu.dateCreation|date('Y-m-d H:i:s') : '' }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <a href="{{ path('contenu_index') }}">back to list</a>
+
+    <a href="{{ path('contenu_edit', {'id': contenu.id}) }}">edit</a>
+
+    {{ include('contenu/_delete_form.html.twig') }}
+{% endblock %}
