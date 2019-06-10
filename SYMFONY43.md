@@ -196,5 +196,30 @@ http://localhost/symfony43/public/contenu/
      */
     class ContenuController extends AbstractController
 
+* les pages CRUD sont maintenant sur cette URL
+
+http://localhost/symfony43/public/admin/contenu/
 
 
+## CREER UNE ENTITY User
+
+* pour protéger notre partie admin
+* on va créer une entity User
+
+https://symfony.com/doc/current/security.html
+
+
+https://symfony.com/doc/current/security.html#a-create-your-user-class
+
+* lancer la ligne de commande
+
+php bin/console make:user
+
+* répondre aux questions en laissant les choix par défaut
+
+
+    created: src/Entity/User.php
+    created: src/Repository/UserRepository.php
+    updated: src/Entity/User.php
+    updated: config/packages/security.yaml
+ 
