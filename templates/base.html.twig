@@ -6,6 +6,18 @@
         {% block stylesheets %}{% endblock %}
     </head>
     <body>
+        <header>
+            <h1>site symfony43</h1>
+            <nav>
+                <ul>
+                    <li><a href="{{ path('visit') }}">accueil</a></li>
+                    <li><a href="{{ path('app_login') }}">login</a></li>
+                    <li><a href="{{ path('app_logout') }}">logout</a></li>
+                    <li><a href="{{ path('contenu_index') }}">admin contenu</a></li>
+                    <li><a href="{{ path('user_index') }}">admin user</a></li>
+                </ul>
+            </nav>
+        </header>
         {% block body %}{% endblock %}
         {% block javascripts %}{% endblock %}
     </body>

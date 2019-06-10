@@ -439,3 +439,27 @@ https://symfony.com/doc/current/security.html#logging-out
 * et si on clique sur le lien
 * alors on est déconnecté, et on arrive sur la page de /login
 
+## AJOUT LIENS VERS LES DIFFERENTES PARTIES DU SITE
+
+
+* pour naviguer entre les parties du site
+* on va ajouter un menu
+
+https://symfony.com/doc/current/templating.html
+
+* modifier le fichier templates/base.html.twig 
+
+        <header>
+            <h1>site symfony43</h1>
+            <nav>
+                <ul>
+                    <li><a href="{{ path('visit') }}">accueil</a></li>
+                    <li><a href="{{ path('app_login') }}">login</a></li>
+                    <li><a href="{{ path('app_logout') }}">logout</a></li>
+                    <li><a href="{{ path('contenu_index') }}">admin contenu</a></li>
+                    <li><a href="{{ path('user_index') }}">admin user</a></li>
+                </ul>
+            </nav>
+        </header>
+
+
