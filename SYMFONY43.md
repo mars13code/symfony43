@@ -100,5 +100,22 @@ https://localhost/symfony43/public/visit
 https://localhost/symfony43/public/
 
 
+## CONFIGURER DOCTRINE
+
+* MODIFIER LE FICHIER .env
+* POUR AJOUTER LES INFOS DE CONNEXION A LA DATABASE MYSQL
+* ON VA UTILISER UNE DATABASE symfony43
+
+https://symfony.com/doc/current/doctrine.html
+
+* modifier la ligne suivante dans le fichier .env
+* (au besoin changer le user et password MySQL...)
+
+# DATABASE_URL=mysql://db_user:db_password@127.0.0.1:3306/db_name
+DATABASE_URL=mysql://root:@127.0.0.1:3306/symfony43
+
+
+
+
 
 
