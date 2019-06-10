@@ -185,6 +185,16 @@ https://symfony.com/blog/new-and-improved-generators-for-makerbundle
     created: templates/contenu/new.html.twig
     created: templates/contenu/show.html.twig
 
+* vérifier que les pages CRUD focntionnent correctement
+
+http://localhost/symfony43/public/contenu/
+
+* on va changer le préfixe d'url pour déplacer ces pages dans la partie admin/
+
+    /**
+     * @Route("/admin/contenu")
+     */
+    class ContenuController extends AbstractController
 
 
 
