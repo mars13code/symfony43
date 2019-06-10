@@ -256,4 +256,28 @@ php bin/console make:user
 
 * vérifier avec phpmyadmin que tout s'est bien passé...
 
+## CREATION DU CRUD User
+
+* lancer la ligne de commande 
+
+    php bin/console make:crud User
+
+* => on doit avoir les nouveaux fichiers
+
+    created: src/Controller/UserController.php
+    created: src/Form/UserType.php
+    created: templates/user/_delete_form.html.twig
+    created: templates/user/_form.html.twig
+    created: templates/user/edit.html.twig
+    created: templates/user/index.html.twig
+    created: templates/user/new.html.twig
+    created: templates/user/show.html.twig
+
+* modifier le préfixe de route pour ajouter /admin/
+
+
+    /**
+     * @Route("/admin/user")
+     */
+    class UserController extends AbstractController
 
