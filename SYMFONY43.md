@@ -65,5 +65,19 @@ https://localhost/symfony43/public/blabla
 
 * => la page doit afficher une erreur symfony (et pas apache...)
 
+## AJOUTER QUELQUES PAGES
 
+https://symfony.com/doc/current/page_creation.html
+
+* avec le terminal, dans le dossier symfony43/
+* lancer la ligne de commande
+
+php bin/console make:controller
+
+* on va créer VisitController
+* => vérifier que les fichiers ont bien été créés
+
+    created: src/Controller/VisitController.php
+    created: templates/visit/index.html.twig
+ 
 
