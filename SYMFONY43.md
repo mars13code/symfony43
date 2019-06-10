@@ -410,3 +410,32 @@ https://symfony.com/doc/current/security/form_login_setup.html
 * =>    si on entre les infos de login pour un bon User
 * =>        on est alors redirigé vers la page admin/contenu
 
+
+## AJOUTER LE LIEN DE logout
+
+https://symfony.com/doc/current/security.html#logging-out
+
+* ajouter dans config/packages/security.yaml
+
+            logout:
+                path:   app_logout
+                # where to redirect after logout
+                target: app_login                
+                
+
+* ajouter la méthode logout dans src/security/SecurityController.php
+
+
+    /**
+     * @Route("/logout", name="app_logout", methods={"GET"})
+     */
+    public function logout()
+    {
+        // controller can be blank: it will never be executed!
+        throw new \Exception('Don\'t forget to activate logout in security.yaml');
+    }
+
+* on a maintenant dans le profiler un lien pour se déconnecter
+* et si on clique sur le lien
+* alors on est déconnecté, et on arrive sur la page de /login
+
