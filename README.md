@@ -14,7 +14,9 @@ https://symfony.com/doc/current/setup.html
 *   (avec la plupart des bundles utiles...)
 
 
-    php composer.phar create-project symfony/website-skeleton symfony43
+```
+php composer.phar create-project symfony/website-skeleton symfony43
+```
 
 
 ## INITIALISER GIT
@@ -33,9 +35,9 @@ src/Migrations/
 * lancer les commandes
 
 ```
-    git status
-    git add -A
-    git commit -a -m "symfony43"
+git status
+git add -A
+git commit -a -m "symfony43"
 ```
 
 ## AJOUTER LE BUNDLE APACHE PACK
@@ -49,12 +51,14 @@ https://symfony.com/doc/current/setup/web_server_configuration.html
 * lancer composer pour installer apache-pack
 
 
-    php composer.phar require symfony/apache-pack
+```
+php composer.phar require symfony/apache-pack
+```
 
-* => répondre 'yes'
-*       (confirmation demandée acr ce n'est pas une recette officielle)
-
-* => vérifier que le fichier public/.htaccess est bien créé
+    * => répondre 'yes'
+    *       (confirmation demandée acr ce n'est pas une recette officielle)
+    
+    * => vérifier que le fichier public/.htaccess est bien créé
 
 ## VERIFICATION INSTALL
 
@@ -77,13 +81,17 @@ https://symfony.com/doc/current/page_creation.html
 * avec le terminal, dans le dossier symfony43/
 * lancer la ligne de commande
 
+```
 php bin/console make:controller
+```
 
 * on va créer VisitController
 * => vérifier que les fichiers ont bien été créés
 
+```
     created: src/Controller/VisitController.php
     created: templates/visit/index.html.twig
+```
 
 * vérifier que l'url affiche bien une page
 
@@ -126,11 +134,15 @@ DATABASE_URL=mysql://root:@127.0.0.1:3306/symfony43
 
 * lancer la ligne de commande pour créer la database MySQL
 
-    php bin/console doctrine:database:create
+ ```
+   php bin/console doctrine:database:create
+```
 
 * on devrait obtenir ce message
 
+```
     Created database `symfony43` for connection named default
+```
 
 * => vérifier avec phpmyadmin que la database a bien été créée
 
@@ -138,6 +150,8 @@ DATABASE_URL=mysql://root:@127.0.0.1:3306/symfony43
 ## CREER UNE ENTITE Contenu
 
 https://symfony.com/doc/current/doctrine.html#creating-an-entity-class
+
+```
 
 * on va créer une entité Contenu
 *   avec comme propriétés
@@ -147,27 +161,34 @@ https://symfony.com/doc/current/doctrine.html#creating-an-entity-class
 *       imageSrc        string(160)
 *       categorie       string(160)
 *       dateCreation    datetime
+```
 
 
 * lancer la ligne de commande
 
-    php bin/console make:entity
+```
+php bin/console make:entity
+```
 
 * répondre aux questions...
 
-
+```
     created: src/Entity/Contenu.php
     created: src/Repository/ContenuRepository.php
+```
 
 * lancer la création de la table MySQL
 
-
-    php bin/console make:migration
-    php bin/console doctrine:migrations:migrate
+```
+php bin/console make:migration
+php bin/console doctrine:migrations:migrate
+```
 
 * on devrait obtenir ce message
 
+```
     -> CREATE TABLE contenu (id INT AUTO_INCREMENT NOT NULL, titre VARCHAR(160) NOT NULL, uri VARCHAR(160) NOT NULL, code LONGTEXT NOT NULL, image_src VARCHAR(160) NOT NULL, categorie VARCHAR(160) NOT NULL, date_creation DATETIME NOT NULL, PRIMARY KEY(id)) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci ENGINE = InnoDB
+```
 
 * vérifier avec phpmyadmin que la table SQL est bien créée
 
@@ -180,10 +201,13 @@ https://symfony.com/blog/new-and-improved-generators-for-makerbundle
 
 * lancer la ligne de commande
 
-    php bin/console make:crud Contenu
+```
+php bin/console make:crud Contenu
+```
 
 * on doit obtenir ces fichiers...
 
+```
     created: src/Controller/ContenuController.php
     created: src/Form/ContenuType.php
     created: templates/contenu/_delete_form.html.twig
@@ -192,6 +216,7 @@ https://symfony.com/blog/new-and-improved-generators-for-makerbundle
     created: templates/contenu/index.html.twig
     created: templates/contenu/new.html.twig
     created: templates/contenu/show.html.twig
+```
 
 * vérifier que les pages CRUD focntionnent correctement
 
@@ -223,7 +248,9 @@ https://symfony.com/doc/current/security.html#a-create-your-user-class
 
 * lancer la ligne de commande
 
-    php bin/console make:user
+```
+php bin/console make:user
+```
 
 * répondre aux questions en laissant les choix par défaut
 
@@ -235,8 +262,10 @@ https://symfony.com/doc/current/security.html#a-create-your-user-class
  
 * lancer la création de la table MySQL
 
-    php bin/console make:migration
-    php bin/console doctrine:migrations:migrate
+```
+php bin/console make:migration
+php bin/console doctrine:migrations:migrate
+```
 
 * si vous avez une version MySQL < 5.7.8
 * il y a une erreur car le type JSON n'existe pas 
@@ -259,12 +288,16 @@ https://symfony.com/doc/current/security.html#a-create-your-user-class
 * effacer les fichiers src/Migrations/Version...
 * relancer les commandes de synchronisation
 
-    php bin/console make:migration
-    php bin/console doctrine:migrations:migrate
+```
+php bin/console make:migration
+php bin/console doctrine:migrations:migrate
+```
 
 * on devrait obtenir un message...
 
+```
     -> CREATE TABLE user (id INT AUTO_INCREMENT NOT NULL, email VARCHAR(160) NOT NULL, password VARCHAR(255) NOT NULL, UNIQUE INDEX UNIQ_8D93D649E7927C74 (email), PRIMARY KEY(id)) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci ENGINE = InnoDB
+```
 
 * vérifier avec phpmyadmin que tout s'est bien passé...
 
@@ -272,10 +305,13 @@ https://symfony.com/doc/current/security.html#a-create-your-user-class
 
 * lancer la ligne de commande 
 
-    php bin/console make:crud User
+```
+php bin/console make:crud User
+```
 
 * => on doit avoir les nouveaux fichiers
 
+```
     created: src/Controller/UserController.php
     created: src/Form/UserType.php
     created: templates/user/_delete_form.html.twig
@@ -284,6 +320,7 @@ https://symfony.com/doc/current/security.html#a-create-your-user-class
     created: templates/user/index.html.twig
     created: templates/user/new.html.twig
     created: templates/user/show.html.twig
+```
 
 * modifier le préfixe de route pour ajouter /admin/
 
@@ -340,11 +377,14 @@ https://symfony.com/doc/current/security/form_login_setup.html
 
 * lancer la commande 
 
-    php bin/console make:auth
+```
+php bin/console make:auth
+```
 
 * répondre aux questions en donnant comme réponses:
 
 
+```
     What style of authentication do you want? [Empty authenticator]:
       [0] Empty authenticator
       [1] Login form authenticator
@@ -360,6 +400,7 @@ https://symfony.com/doc/current/security/form_login_setup.html
      updated: config/packages/security.yaml
      created: src/Controller/SecurityController.php
      created: templates/security/login.html.twig
+```
 
 
 * vérifier que le formulaire de login focntionne correctement
@@ -507,15 +548,21 @@ https://symfony.com/doc/current/testing.html
 
 * lancer la ligne de commande
 
-    php bin/console make:unit-test
+```
+php bin/console make:unit-test
+```
 
 * on doit obtenir un nouveau fichier
 
+```
     created: tests/BasicTest.php
+```
 
 * lancer tous les tests
 
-    php bin/phpunit
+```
+php bin/phpunit
+```
 
 * => au premier lancement, cela provoque l'installation des bundles nécessaires...
 
