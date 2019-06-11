@@ -5,8 +5,13 @@ namespace App\Entity;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Security\Core\User\UserInterface;
 
+use Symfony\Component\Validator\Constraints as Assert;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
+
+
 /**
  * @ORM\Entity(repositoryClass="App\Repository\UserRepository")
+ * @UniqueEntity("email")
  */
 class User implements UserInterface
 {
@@ -19,6 +24,7 @@ class User implements UserInterface
 
     /**
      * @ORM\Column(type="string", length=160, unique=true)
+     * @Assert\Email()
      */
     private $email;
 
@@ -67,6 +73,7 @@ class User implements UserInterface
         $roles = $this->roles;
         // guarantee every user at least has ROLE_USER
         $roles[] = 'ROLE_USER';
+        // pour le moment, les seuls User sont admin
         $roles[] = 'ROLE_ADMIN';
 
         return array_unique($roles);

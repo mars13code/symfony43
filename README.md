@@ -666,3 +666,18 @@ class BasicTest extends KernelTestCase
 }
 
 ```
+
+
+## AMELIORATION DES FORMULAIRES
+
+* On va ajouter un peu plus de sécurité sur les formulaires
+
+https://symfony.com/doc/current/validation.html
+
+* On va ajouter sur User que la propriété email
+*   doit être un email
+*   doit être unique
+
+https://symfony.com/doc/current/reference/constraints/Email.html
+
+https://symfony.com/doc/current/reference/constraints/UniqueEntity.html
