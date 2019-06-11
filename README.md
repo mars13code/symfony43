@@ -743,3 +743,25 @@ https://getbootstrap.com/docs/4.3/getting-started/introduction/
     </body>
 </html>
 ```
+
+
+## AJOUT PAGE blog
+
+* on va ajouter une nouvelle page blog
+* sur cette page, on ne va afficher que les contenus dans la catégorie 'blog'
+* ils seront triés du plus récent au plus ancien
+* pour le moment, on affiche tous les contenus
+*   (ensuite il faudra ajouter la pagination)
+
+* ajouter une route dans VisitController
+* ajouter un template src/visit/blog.html.twig
+* ajouter le lien dans le menu
+
+```
+https://symfony.com/doc/current/doctrine.html#fetching-objects-from-the-database
+
+https://twig.symfony.com/doc/2.x/templates.html
+
+https://symfony.com/doc/current/templating.html#linking-to-assets
+```
+

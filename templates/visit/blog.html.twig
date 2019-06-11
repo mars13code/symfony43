@@ -1,0 +1,22 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello VisitController!{% endblock %}
+
+{% block body %}
+    <main>
+        <section>
+            <h3>Blog</h3>
+            {# https://twig.symfony.com/doc/2.x/templates.html #}
+            <div class="tabContenu">
+                {% for contenu in tabContenu %}
+                    <article>
+                        <h3>{{ contenu.titre }}</h3>
+                        <div>{{ contenu.code }}</div>
+                        {# https://symfony.com/doc/current/templating.html#linking-to-assets #}
+                        <figure><img src="{{ asset(contenu.imageSrc) }}"></figure>
+                    </article>
+                {% endfor %}
+            </div>
+        </section>
+    </main>
+{% endblock %}
