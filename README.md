@@ -265,13 +265,16 @@ php bin/console make:user
 ```
 php bin/console make:migration
 php bin/console doctrine:migrations:migrate
-```
 
 * si vous avez une version MySQL < 5.7.8
 * il y a une erreur car le type JSON n'existe pas 
 *               dans les versions plus anciennes de MySQL
 
 * contourner le problème en enlevant la colonne roles
+*   (pour le moment, le seul User est admin...)
+
+```
+
 
 ```php
     /**
