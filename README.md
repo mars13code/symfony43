@@ -681,3 +681,12 @@ https://symfony.com/doc/current/validation.html
 https://symfony.com/doc/current/reference/constraints/Email.html
 
 https://symfony.com/doc/current/reference/constraints/UniqueEntity.html
+
+
+* On va ajouter sur User que la propriété uri
+*   doit être unique
+
+* Dans le formulaire CRUD, on enlève le champ dateCreation
+* et on ajoute une méthode __construct sur Contenu pour initialiser la date 
+
+
