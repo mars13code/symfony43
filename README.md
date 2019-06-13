@@ -903,6 +903,11 @@ use Symfony\Component\Validator\Constraints as Assert;
 * vérifier que le chemin est bien dans la propriété imageSrc
 * vérifier que sur la page blog/ les articles affichent bien l'image
 
+* ajouter dans .gitignore le dossier public/assets/media/
+
+```
+public/assets/media/
+```
 
 
 
