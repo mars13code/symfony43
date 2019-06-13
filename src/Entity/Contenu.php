@@ -6,6 +6,10 @@ use Doctrine\ORM\Mapping as ORM;
 
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
+use Symfony\Component\HttpFoundation\File\File;
+use Symfony\Component\Validator\Constraints as Assert;
+
+
 /**
  * @ORM\Entity(repositoryClass="App\Repository\ContenuRepository")
  * @UniqueEntity("uri")
@@ -50,11 +54,21 @@ class Contenu
     private $dateCreation;
 
     /**
+     * @Assert\Image()
+     * cette propriété sert pour le formulaire d'upload 
+     */
+    public $imageUpload;
+
+    /**
      *  constructeur 
      */
     public function __construct ()
     {
-        $this->dateCreation = new \DateTime;    
+        // initiliser à la date actuell
+        $this->dateCreation = new \DateTime;
+        // pour passer la validation du formulaire
+        $this->imageSrc     = "";  
+        $this->imageUpload  = null;
     }
     
     public function getId(): ?int

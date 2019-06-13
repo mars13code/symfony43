@@ -15,8 +15,9 @@ class ContenuType extends AbstractType
             ->add('titre')
             ->add('uri')
             ->add('code')
-            ->add('imageSrc')
+            //->add('imageSrc')
             ->add('categorie')
+            ->add('imageUpload')
             // sera automatiquement initialisé 
             // à la date actuelle dans le constructeur
             //->add('dateCreation')

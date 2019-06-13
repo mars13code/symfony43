@@ -765,3 +765,144 @@ https://twig.symfony.com/doc/2.x/templates.html
 https://symfony.com/doc/current/templating.html#linking-to-assets
 ```
 
+## AJOUT UPLOAD D'IMAGE SUR Contenu
+
+* créer le dossier public/assets/media/
+* qui servira à stocker les images uploadés lors de la création de Contenu
+
+https://symfony.com/doc/current/controller/upload_file.html
+
+* ajouter 2 paramètres dans le fichier config/services.yaml
+* dossier_public
+* dossier_media
+* => cela permettra une meilleure ré-utilisation du code du projet
+* 
+
+```
+# config/services.yaml
+
+# ...
+parameters:
+    dossier_public: '%kernel.project_dir%/public'
+    dossier_media: 'assets/media'
+```
+
+* ajouter une propriété imageUpload dans src/Entity/Contenu.php
+* ajouter une contrainte pour valider que c'est un fichier image
+* dans la méthode constructeur
+*   initialiser la propriété imageSrc avec "" pour passer la validation du formulaire
+
+* attention: cette propriété ne sera pas associée à une colonne SQL
+* cette propriété imageUpload sert uniquement pour le formulaire
+
+```php
+
+// ...
+
+use Symfony\Component\HttpFoundation\File\File;
+use Symfony\Component\Validator\Constraints as Assert;
+
+// ...
+
+    /**
+     * @Assert\Image()
+     * cette propriété sert pour le formulaire d'upload 
+     */
+    public $imageUpload;
+
+    /**
+     *  constructeur 
+     */
+    public function __construct ()
+    {
+        // initiliser à la date actuell
+        $this->dateCreation = new \DateTime;
+        // pour passer la validation du formulaire
+        $this->imageSrc     = "";  
+        $this->imageUpload  = null;
+    }
+
+// ...
+    
+```
+
+* ajouter le champ dans le formulaire
+*   en ajoutant le champ dans src/Form/ContenuType.php
+*   et enlever le champ pour imageSrc
+
+```
+
+// ...
+
+        $builder
+            ->add('titre')
+            ->add('uri')
+            ->add('code')
+            ->add('categorie')
+            ->add('imageUpload')
+// ...
+    
+```
+
+* ajouter le code de traitement du formulaire dans la méthode du controleur
+* src/Controller/ContenuController.php
+* 
+
+    
+```
+// ...
+
+    /**
+     * @Route("/new", name="contenu_new", methods={"GET","POST"})
+     */
+    public function new(Request $request): Response
+    {
+        $contenu = new Contenu();
+        $form = $this->createForm(ContenuType::class, $contenu);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            // traitement de l'upload
+            $imageUpload = $contenu->imageUpload;
+            if ($imageUpload != null)
+            {
+                $dossierPublic = $this->getParameter("dossier_public");
+                $dossierMedia = $this->getParameter("dossier_media");
+                $dossierCible = "$dossierPublic/$dossierMedia";
+                
+                // TODO: normaliser le nom du fichier pour enlever les caractères spéciaux
+                $originalName = $imageUpload->getClientOriginalName();
+                // on déplace le fichier hors de la zone de quarantaine
+                $imageUpload->move($dossierCible, $originalName);
+                
+                // stocker le chemin vers l'image
+                $contenu->setImageSrc("$dossierMedia/$originalName");
+            }
+            
+            $entityManager = $this->getDoctrine()->getManager();
+            $entityManager->persist($contenu);
+            $entityManager->flush();
+
+            return $this->redirectToRoute('contenu_index');
+        }
+
+        return $this->render('contenu/new.html.twig', [
+            'contenu' => $contenu,
+            'form' => $form->createView(),
+        ]);
+    }
+
+// ...
+
+```
+
+* tester le formulaire en uploadant une image
+* attention: bug avec bootstrap4, le champ input ne montre pas qu'un fichier a été choisi :-/
+
+* vérifier que le fichier est bien créé dans le dossier public/assets/media/
+* vérifier que le chemin est bien dans la propriété imageSrc
+* vérifier que sur la page blog/ les articles affichent bien l'image
+
+
+
+

@@ -5,6 +5,8 @@
 # https://symfony.com/doc/current/best_practices/configuration.html#application-related-configuration
 parameters:
     locale: 'en'
+    dossier_public: '%kernel.project_dir%/public'
+    dossier_media: 'assets/media'
 
 services:
     # default configuration for services in *this* file

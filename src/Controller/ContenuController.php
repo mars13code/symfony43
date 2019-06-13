@@ -35,6 +35,23 @@ class ContenuController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            // traitement de l'upload
+            $imageUpload = $contenu->imageUpload;
+            if ($imageUpload != null)
+            {
+                $dossierPublic = $this->getParameter("dossier_public");
+                $dossierMedia = $this->getParameter("dossier_media");
+                $dossierCible = "$dossierPublic/$dossierMedia";
+                
+                // TODO: normaliser le nom du fichier pour enlever les caractères spéciaux
+                $originalName = $imageUpload->getClientOriginalName();
+                // on déplace le fichier hors de la zone de quarantaine
+                $imageUpload->move($dossierCible, $originalName);
+                
+                // stocker le chemin vers l'image
+                $contenu->setImageSrc("$dossierMedia/$originalName");
+            }
+            
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->persist($contenu);
             $entityManager->flush();
